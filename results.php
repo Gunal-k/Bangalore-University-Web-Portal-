@@ -15,6 +15,7 @@ $result = $conn2->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/cards.css">
+    <link rel="icon" href="assets/kn_seal.png" type="image/x-icon">
     <title>Results - Bangalore University</title>
 </head>
 <body>
@@ -40,7 +41,7 @@ $result = $conn2->query($sql);
             <th>Total</th>
             <th>Status</th>
             <th>Credits</th>
-            <th>Grade</th>
+            <th>Grade Points</th>
           </tr>";
     
     while ($row = $result->fetch_assoc()) {
@@ -57,6 +58,7 @@ $result = $conn2->query($sql);
         echo "<td>" . $row['grade'] . "</td>";
                         }
                         echo "</table><br>";
+                        
                     } else {
                         echo "0 results";
                     }
