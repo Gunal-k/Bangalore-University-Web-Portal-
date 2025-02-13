@@ -60,7 +60,7 @@ Unauthorized copying, modification, or distribution of this code is strictly pro
 </header>
 <div id="content">
     <?php
-    include('Home.php');
+    include 'Home.php';
     ?>
 </div>
 <footer>

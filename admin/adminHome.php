@@ -61,7 +61,7 @@ if (isset($_GET["logout"])) {
 </header>
 <div id="content">
     <?php
-    include $site;
+    include 'home.php';
     ?>
 </div>
 </body>

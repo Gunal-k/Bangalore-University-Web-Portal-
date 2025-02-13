@@ -5,6 +5,10 @@
     margin: 0;
     padding: 0;
 }
+
+.section1{
+    margin-top: 100px;
+}
 .cards p{
     font-size: 20px;
     text-align: center;
@@ -33,8 +37,13 @@
     padding: 20px;
     border-radius: 8px;  
 }
-h2{
-    margin-top: -20px;
+.icon{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 25px;
+}
+.cards h2{
+    font-size: 26px;
 }
 .cards .r1,.cards .r2{
     margin-bottom: 50px;
