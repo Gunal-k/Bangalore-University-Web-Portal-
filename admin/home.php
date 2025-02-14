@@ -22,7 +22,7 @@
 <body>
     <div class="section1">
         <div class="cards">
-            <div class="card1">
+            <div class="card1" onclick="loadPage('cards')">
                 <div class="s1 card">
                     <img src="../assets/group.png" alt="users" class="icon">
                     <h2>Total Registered Students</h2>
@@ -32,7 +32,7 @@
                     <h3><?php echo $user_total ?></h3>
                 </div>
             </div>
-            <div class="card2">
+            <div class="card2" onclick="loadPage('resultview')">
                 <div class="s2 card">
                     <img src="../assets/result.png" alt="result" class="icon">
                     <h2>Total Results</h2>

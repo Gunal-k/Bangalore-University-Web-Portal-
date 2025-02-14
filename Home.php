@@ -11,13 +11,16 @@
         <img src="assets/uni1.jpg" alt="Bangalore University" class="university_pic">
         <div class="wrap">
             <h1>WELCOME TO BANGALORE UNIVERSITY</h1>
-            <button class="know_more" onclick="window.location.href='//en.wikipedia.org/wiki/Bangalore_University';">Know More</button>
         </div>
     </div>
-    <div class="section2">
+    <div class="empty" id="empty">
+        <a href="#section2" class="emp_btn" data-ga-action="Splash screen scroller">Explore BU</a>
+    </div>
+    <div class="section2" id="section2">
         <div class="wrap2">
             <h1>A Societal Mission</h1>
             <p>Bangalore University was founded almost 60 years ago on a bedrock of societal purpose. Our mission is to contribute to the world by educating students for lives of leadership and contribution with integrity, advancing fundamental knowledge and cultivating creativity, leading in pioneering research for effective clinical therapies, and accelerating solutions and amplifying their impact.</p>
+            <button class="know_more" onclick="window.location.href='//en.wikipedia.org/wiki/Bangalore_University';">Know More</button>
         </div>
     </div>
     <div class="section3">
@@ -39,5 +42,33 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.334884944982!2d77.49948677447271!3d12.950410015343696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3ebbdccfffff%3A0xad11c0e4bdbffcc9!2sBengaluru%20University!5e0!3m2!1sen!2sin!4v1729534069289!5m2!1sen!2sin" width="100%" height="580px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
+    <script>
+        let scrollAnimation;
+
+        document.querySelector('a[href="#section2"]').addEventListener("click", function (event) {
+            event.preventDefault();
+
+            let target = document.querySelector("#section2");
+            let targetPosition = target.getBoundingClientRect().top + window.scrollY;
+            let startPosition = window.scrollY;
+            let distance = targetPosition - startPosition;
+            let duration = 1300;
+            let start = performance.now();
+
+            function step(timestamp) {
+                let progress = timestamp - start;
+                let easeInOut = progress / duration;
+                if (easeInOut > 1) easeInOut = 1;
+
+                window.scrollTo(0, startPosition + distance * easeInOut);
+
+                if (progress < duration) {
+                    scrollAnimation = requestAnimationFrame(step);
+                }
+            }
+
+            scrollAnimation = requestAnimationFrame(step);
+        });
+    </script>
 </body>
 </html>
