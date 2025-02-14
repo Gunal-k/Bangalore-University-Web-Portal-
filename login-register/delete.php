@@ -1,5 +1,5 @@
 <?php
-    include("database/db.php");
+    include "database/db.php";
     $user_id=$_POST['user_id'];
     $username = $_POST['username'];
     $query1="DELETE FROM users WHERE user_id={$user_id}";
@@ -16,4 +16,3 @@
         header("Location: ../admin/adminHome.php");
         exit();
     }
-?>

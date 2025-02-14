@@ -25,7 +25,7 @@ if (isset($_GET["logout"])) {
     <script>
         function loadPage(page) {
             const contentDiv = document.getElementById('content');
-            fetch(page + '.php')
+            fetch(page)
                 .then(response => {
                     if (!response.ok) throw new Error('Page not found');
                     return response.text();
@@ -47,18 +47,17 @@ if (isset($_GET["logout"])) {
         <h2>Bangalore University</h2>
     </span>
     <div class="head">
-        <button onclick="loadPage('Home')">Home</button>
-        <button onclick="loadPage('about')" >About</button>
-        <button onclick="loadPage('join')" >Join</button>
-        <button onclick="loadPage('courses')" >Courses</button>
-        <button onclick="loadPage('contact')" >Contact</button>
-        <button onclick="loadPage('results')" >My Results</button>
+    <button onclick="loadPage('Home.html')">Home</button>
+        <button onclick="loadPage('about.html')" >About</button>
+        <button onclick="loadPage('join.html')" >Join</button>
+        <button onclick="loadPage('courses.html')" >Courses</button>
+        <button onclick="loadPage('contact.html')" >Contact</button>
         <button onclick="window.location.href='login.php'" class="login">Login</button>
     </div>
 </header>
 <div id="content">
     <?php
-    include('Home.php');
+    include 'Home.html';
     ?>
 </div>
 <script>
@@ -77,7 +76,7 @@ if (isset($_GET["logout"])) {
                 </div>
                 <ul class="profile-dropdown-list" id="pdl">
                     <li class="profile-dropdown-list-item">
-                        <a onclick="loadPage('profile')" style="cursor:pointer;">Profile</a>
+                        <a onclick="loadPage('profile.php')" style="cursor:pointer;">Profile</a>
                     </li>
                     <li class="profile-dropdown-list-item">
                         <a href="reset.php">Reset Password</a>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("database/db.php");
+include "database/db.php";
 $email = $_POST['email'] ?? $_SESSION['email'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -53,4 +53,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } 
 
 mysqli_close($conn1);
-?>

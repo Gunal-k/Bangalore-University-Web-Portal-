@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	$message = isset($_SESSION['message']) ? $_SESSION['message'] : '';
+	$message = $_SESSION['message'] ?? '';
 	unset($_SESSION["message"]);
 ?>
 <!DOCTYPE html>

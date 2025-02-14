@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("../login-register/database/db.php");
+    include "../login-register/database/db.php";
     $username=$_POST['username'];
     $sql = "SELECT * FROM $username";
     $result = $conn2->query($sql);

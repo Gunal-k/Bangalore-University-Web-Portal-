@@ -1,13 +1,17 @@
 <?php
     session_start();
-    include("../login-register/database/db.php");
-    $id=$_SESSION['username'];
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-    $stmt->bind_param("s", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $img=$row['photo'];
+    include "../login-register/database/db.php";
+    if(isset($_SESSION['username'])){
+        $id=$_SESSION['username'];
+        $sql = "SELECT * FROM users WHERE username = ?";
+        $stmt = $conn1->prepare($sql);
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $img=$row['photo'];
+        $stmt->close();
+    }
 ?>
 <html>
 <head>

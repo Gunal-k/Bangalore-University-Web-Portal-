@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("login-register/database/db.php");
+    include "login-register/database/db.php";
     $id=$_SESSION['username'];
     $stmt = $conn1->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param("s", $id);
@@ -125,7 +125,7 @@
                 </td>
             </tr>
         </table>
-        <button onclick="loadPage('Home')" class="back_button">Back to Home</button>
+        <button onclick="loadPage('Home.html')" class="back_button">Back to Home</button>
     </center>
 </body>
 </html>

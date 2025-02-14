@@ -3,9 +3,9 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 $username=$_GET['username']??$_POST['username'];
-include("..\login-register\database\db.php");
+include "..\login-register\database\db.php";
 if ($conn2->connect_error) {
-    die("Connection failed: " . $conn2->connect_error);
+    die("Connection failed: {$conn2->connect_error}");
 }
 
 $sql = "SELECT * FROM $username";

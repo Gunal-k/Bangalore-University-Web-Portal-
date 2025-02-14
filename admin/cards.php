@@ -1,7 +1,7 @@
 <?php
 include("..\login-register\database\db.php");
 if ($conn1->connect_error) {
-    die("Connection failed: " . $conn1->connect_error);
+    die("Connection failed: {$conn1->connect_error}");
 }
 
 $sql = "SELECT * FROM users where role='user'";

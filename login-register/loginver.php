@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("database/db.php");
+include "database/db.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST["email"]) && !empty($_POST["password"])) {
@@ -17,14 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["image_path"]=$row['photo'];
                 $_SESSION["login"]=true;
                 $role = $row['role'];
-                if($role=="user"){
-                    $_SESSION["email"] = $email;
-                    header("Location: ../userhome.php");
-                    exit();
-                }
-                else{
-                    header("Location: ../admin/adminHome.php");
-                    exit();
+                switch ($role) {
+                    case "user":
+                        $_SESSION["email"] = $email;
+                        header("Location: ../userhome.php");
+                        exit();
+                    case "admin":
+                        header("Location: ../admin/adminHome.php");
+                        exit();
                 }
             } else {
                 $_SESSION['message'] = "Invalid password";
@@ -45,4 +45,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 mysqli_close($conn1);
-?>
