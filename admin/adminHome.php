@@ -8,6 +8,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     header("Location: ../login.php");
     exit();
 }
+
 if (isset($_SESSION['message'])) {
     echo "<script>alert('{$_SESSION['message']}');</script>";
     unset($_SESSION['message']); 
@@ -54,14 +55,12 @@ if (isset($_GET["logout"])) {
     </span>
     <div class="head">
         <button onclick="loadPage('home')">Home</button>
-        <!--<button onclick="loadPage('insert')">Add User</button>-->
         <button onclick="loadPage('cards')">Registered Users</button>
         <button onclick="loadPage('resultview')">View Results</button>
         <button onclick="loadPage('admissionview')">View Applications</button>
         <form action="adminHome.php?logout=1" method="POST" onsubmit="return confirm('Are you sure you want to log out?');">
             <button type="submit" class="login">Logout</button>
         </form>
-
     </div>
 </header>
 <div id="content">
