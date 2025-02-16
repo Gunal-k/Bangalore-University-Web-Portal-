@@ -51,6 +51,7 @@ if (isset($_GET["logout"])) {
         <button onclick="loadPage('about.html')" >About</button>
         <button onclick="loadPage('join.html')" >Join</button>
         <button onclick="loadPage('courses.html')" >Courses</button>
+        <button onclick="loadPage('admission.html')" >Admission</button>
         <button onclick="loadPage('contact.html')" >Contact</button>
         <button onclick="window.location.href='login.php'" class="login">Login</button>
     </div>

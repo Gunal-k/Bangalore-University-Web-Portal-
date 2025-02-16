@@ -11,6 +11,10 @@
     $sql2 = "SELECT COUNT(*) AS total_tables FROM information_schema.tables WHERE table_schema = 'student_db';";
     $result2 = $conn2->query($sql2);
     $res_total = $result2 ? $result2->fetch_assoc()["total_tables"] : 0;
+
+    $sql3 = "SELECT count(*) as total FROM admissions";
+    $result3 = $conn1->query($sql3);
+    $admission_total = $result3 ? $result3->fetch_assoc()["total"] : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+    <h1>Admin Dashboard</h1>
     <div class="section1">
         <div class="cards">
             <div class="card1" onclick="loadPage('cards')">
@@ -40,6 +45,16 @@
                 <hr>
                 <div class="r2 card">
                     <h3><?php echo $res_total ?></h3>
+                </div>
+            </div>
+            <div class="card3" onclick="loadPage('admissionview')">
+                <div class="s2 card">
+                    <img src="../assets/application.png" alt="result" class="icon">
+                    <h2>Total Applications</h2>
+                </div>
+                <hr>
+                <div class="r2 card">
+                    <h3><?php echo $admission_total ?></h3>
                 </div>
             </div>
         </div>

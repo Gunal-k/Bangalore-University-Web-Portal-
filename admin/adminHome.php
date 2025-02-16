@@ -8,6 +8,10 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     header("Location: ../login.php");
     exit();
 }
+if (isset($_SESSION['message'])) {
+    echo "<script>alert('{$_SESSION['message']}');</script>";
+    unset($_SESSION['message']); 
+}
 
 if (isset($_GET["logout"])) {
     session_unset();

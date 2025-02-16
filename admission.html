@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/admission.css">
+    <title>Admission | BU</title>
+</head>
+<body>
+
+<div class="container">
+    <center>
+        <h1 class="top">Online Admission Form</h1>
+    </center>
+    <form action="./login-register/admission.php" method="POST">
+
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Enter 10-digit number" required>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="course">Select Course:</label>
+        <select id="course" name="course" required>
+            <option value="">Select</option>
+            <option value="BCA">BCA</option>
+            <option value="BSc CS">BSc Computer Science</option>
+            <option value="MCA">MCA</option>
+            <option value="MBA">MBA</option>
+        </select>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea>
+
+        <label for="marks">12th Grade Marks (%):</label>
+        <input type="number" id="marks" name="marks" min="0" max="100" required>
+
+        <button type="submit" class="btn">Submit Application</button>
+
+    </form>
+</div>
+
+</body>
+</html>
