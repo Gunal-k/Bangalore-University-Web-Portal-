@@ -57,6 +57,7 @@ if (isset($_GET["logout"])) {
         <!--<button onclick="loadPage('insert')">Add User</button>-->
         <button onclick="loadPage('cards')">Registered Users</button>
         <button onclick="loadPage('resultview')">View Results</button>
+        <button onclick="loadPage('admissionview')">View Applications</button>
         <form action="adminHome.php?logout=1" method="POST" onsubmit="return confirm('Are you sure you want to log out?');">
             <button type="submit" class="login">Logout</button>
         </form>

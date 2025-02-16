@@ -14,7 +14,7 @@ header{
     display:grid;
     padding-bottom: 3px;
     z-index: 2;
-    grid-template-columns: 4fr 2fr;
+    grid-template-columns: 4fr 3fr;
     border-bottom:1px solid #1b1b1b;
 }
 
