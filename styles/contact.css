@@ -12,14 +12,13 @@
     padding-bottom: 5%;
 }
 .cards p{
-    font-size: 20px;
+    font-size: 17px;
     text-align: center;
 }
 .cards{
     display:flex;
     justify-content: space-evenly;
-    margin-top: 40px;
-    margin-bottom: 100px;
+    margin-bottom: 120px;
 }
 
 .card{
@@ -33,8 +32,8 @@
     flex-direction: column;
     justify-content: center;
     gap: 40px;
-    width: 400px;
-    height: 400px;
+    width: 375px;
+    height: 375px;
     border-top: 10px solid #8F1717;
     box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -48,13 +47,14 @@
 }
 .section1 h1{
     text-align: center;
-    font-size: 70px;
-    padding: 65px;
+    font-size: 40px;
+    margin-top: -10px;
+    padding: 50px;
     color: #8F1717;
 }
 .section1 h3:not(.cards h3){
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
     margin-top: -25px;
     padding: 0px 0px 75px 0px;
 }
@@ -65,5 +65,5 @@
     gap: 20px;
 }
 .s1,.s2,.s3{
-    margin-top: 30px;
+    margin-top: 20px;
 }

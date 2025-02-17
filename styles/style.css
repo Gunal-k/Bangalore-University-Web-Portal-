@@ -127,8 +127,9 @@ html{
     font-size: 20px;
 }
 .map{
-    height: 620px;
+    height: 650px;
     background-color: #fff;
+    z-index: -1;
 }
 .map>h1{
     text-align: center;
