@@ -45,8 +45,7 @@ $result = $conn1->query($query);
                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                             <select name="status">
                                 <option value="Pending" <?php echo ($row['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
-                                <option value="Approved" <?php echo ($row['status'] == 'Approved') ? 'selected' : ''; ?>>Approved</option>
-                                <option value="Rejected" <?php echo ($row['status'] == 'Rejected') ? 'selected' : ''; ?>>Rejected</option>
+                                <option value="Processed" <?php echo ($row['status'] == 'Processed') ? 'selected' : ''; ?>>Processed</option>
                             </select>
                             <button type="submit" name="update_status" class="updt">Update</button>
                         </form>
