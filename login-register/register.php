@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fileSize = $_FILES['photo']['size'];
         $fileType = $_FILES['photo']['type'];
         $base = generateUniqueId() . '_' . basename($fileName);
-        $dest_path = './uploads/{$base}';
+        $dest_path = "./uploads/{$base}";
 
         if (move_uploaded_file($fileTmpPath, $dest_path)) {
             $uname = $base;
