@@ -44,10 +44,11 @@
             <th>Credits</th>
             <th>Grade Points</th>
         </tr>";
+    $i=0;
     
     while ($row = $result->fetch_assoc()) {
-        echo "<tr class='row-" . $row['sno'] . "'>";
-        echo "<td>" . $row['sno'] . "</td>";
+        echo "<tr class='row-" . $row['id'] . "'>";
+        echo "<td>" . $i + 1 . "</td>";
         echo "<td>" . $row['subject'] . "</td>";
         echo "<td>" . $row['max'] . "</td>";
         echo "<td>" . $row['min'] . "</td>";
