@@ -4,17 +4,33 @@ session_start();
 require_once "database/db.php";
 require_once "database/cloudinary.php";
 
-use Cloudinary\Api\Upload\UploadApi;
-
 // 🔒 Optional: admin-only protection
 // if ($_SESSION['role'] !== 'admin') {
 //     exit('Unauthorized');
 // }
 
-function getCloudinaryPublicId($url) {
-    $path = parse_url($url, PHP_URL_PATH);
-    $path = preg_replace('#^/[^/]+/image/upload/[^/]+/#', '', $path);
-    return pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME);
+function deleteFromCloudinary($publicId) {
+    $cloudName = getenv("CLOUDINARY_CLOUD_NAME");
+    $apiKey    = getenv("CLOUDINARY_API_KEY");
+    $apiSecret = getenv("CLOUDINARY_API_SECRET");
+
+    $timestamp = time();
+    $signature = sha1("public_id={$publicId}&timestamp={$timestamp}{$apiSecret}");
+
+    $post = [
+        'public_id' => $publicId,
+        'api_key' => $apiKey,
+        'timestamp' => $timestamp,
+        'signature' => $signature
+    ];
+
+    $ch = curl_init("https://api.cloudinary.com/v1_1/{$cloudName}/image/destroy");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+    curl_exec($ch);
+    curl_close($ch);
 }
 
 $user_id = $_POST['user_id'] ?? null;

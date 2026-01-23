@@ -2,20 +2,18 @@
 session_start();
 include "database/db.php";
 require_once 'database/cloudinary.php';
-use Cloudinary\Api\Upload\UploadApi;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
     $password1 = filter_input(INPUT_POST, "password1", FILTER_SANITIZE_SPECIAL_CHARS);
     $password2 = filter_input(INPUT_POST, "password2", FILTER_SANITIZE_SPECIAL_CHARS);
-    $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
-    $uname = '';
+    $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $path = isset($_GET['value']) && $_GET['value'] == 1 ? "Location: ../admin/adminHome.php" : "Location: ../login.php";
 
     // Default profile image
-    $uname = "https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/default.jpeg";
+    $photo = "https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/default.jpeg";
 
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
 
@@ -28,31 +26,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        try {
-            $upload = (new UploadApi())->upload(
-                $_FILES['photo']['tmp_name'],
-                [
-                    'folder' => 'university_portal/profiles',
-                    'public_id' => uniqid('profile_'),
-                    'overwrite' => true,
-                    'resource_type' => 'image'
-                ]
-            );
+        $uploadedUrl = uploadToCloudinary($_FILES['photo']['tmp_name']);
 
-            // Store URL instead of filename
-            $uname = $upload['secure_url'];
-
-        } catch (Exception $e) {
-            // fallback image
-            $uname = "https://res.cloudinary.com/devl15ini/image/upload/v1769139672/default_igquix.jpg";
+        if ($uploadedUrl) {
+            $photo = $uploadedUrl;
         }
     }
+
 
     if ($password1 == $password2) {
         $hash = password_hash($password1, PASSWORD_DEFAULT);
 
         $stmt = $conn1->prepare("INSERT INTO users (email, username, password, phone, photo) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $email, $username, $hash, $phone, $uname);
+        $stmt->bind_param("sssss", $email, $username, $hash, $phone, $photo);
 
         $stmt2 = $conn->prepare(
             "INSERT INTO results

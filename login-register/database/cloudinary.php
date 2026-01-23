@@ -1,13 +1,17 @@
 <?php
+
 function uploadToCloudinary($tmpFilePath) {
     $cloudName = getenv("CLOUDINARY_CLOUD_NAME");
     $apiKey    = getenv("CLOUDINARY_API_KEY");
     $apiSecret = getenv("CLOUDINARY_API_SECRET");
 
+    if (!$cloudName || !$apiKey || !$apiSecret) {
+        return null;
+    }
+
     $timestamp = time();
     $folder = "university_portal/profiles";
 
-    // Create signature
     $signature = sha1("folder={$folder}&timestamp={$timestamp}{$apiSecret}");
 
     $post = [
@@ -18,8 +22,7 @@ function uploadToCloudinary($tmpFilePath) {
         'signature' => $signature
     ];
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https://api.cloudinary.com/v1_1/{$cloudName}/image/upload");
+    $ch = curl_init("https://api.cloudinary.com/v1_1/{$cloudName}/image/upload");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
