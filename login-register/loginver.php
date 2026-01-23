@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $row = mysqli_fetch_assoc($result);
             if (password_verify($password,$row['password'])) {
                 $_SESSION["username"] = $row['username'];
+                $_SESSION["user_id"] = $row['user_id'];
                 $_SESSION["image_path"]=$row['photo'];
                 $_SESSION["login"]=true;
                 $role = $row['role'];

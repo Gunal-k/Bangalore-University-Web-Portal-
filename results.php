@@ -1,13 +1,13 @@
 <?php
 session_start();
-$username=$_SESSION['username'];
+$user_id=$_SESSION['user_id'];
 include "login-register\database\db.php";
-if ($conn2->connect_error) {
-    die("Connection failed: {$conn2->connect_error}");
+if ($conn->connect_error) {
+    die("Connection failed: {$conn->connect_error}");
 }
 
-$sql = "SELECT * FROM $username";
-$result = $conn2->query($sql);
+$sql = "SELECT * FROM results WHERE user_id='$user_id'";
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +62,7 @@ $result = $conn2->query($sql);
                     } else {
                         echo "0 results";
                     }
-                    $conn2->close();
+                    $conn->close();
                 ?>
             </div>
             <center><button onclick="window.location.href='userhome.php'" id="b2h">Back To home</button></center>
@@ -70,14 +70,5 @@ $result = $conn2->query($sql);
         
     </div>
     <br><br><br><br>
-    <script>
-        function confirmDelete(a) {
-            const val=confirm('Are you sure you want to Delete this User?');
-            if(val){
-                const elem = a.closest('form');
-                elem.action='../login-register/delete.php';
-            }
-        }
-    </script>
 </body>
 </html>
