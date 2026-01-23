@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["login"]=true;
                 $role = $row['role'];
                 switch ($role) {
-                    case "user":
+                    case "student":
                         $_SESSION["email"] = $email;
                         header("Location: ../userhome.php");
                         exit();
