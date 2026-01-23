@@ -1,14 +1,15 @@
 <?php
-session_start();
-$user_id=$_SESSION['user_id'];
-include "login-register\database\db.php";
-if ($conn->connect_error) {
-    die("Connection failed: {$conn->connect_error}");
-}
+    session_start();
+    $user_id=$_SESSION['user_id'];
+    include "login-register/database/db.php";
+    if ($conn->connect_error) {
+        die("Connection failed: {$conn->connect_error}");
+    }
 
-$sql = "SELECT * FROM results WHERE user_id='$user_id'";
-$result = $conn->query($sql);
+    $sql = "SELECT * FROM results WHERE user_id='$user_id'";
+    $result = $conn->query($sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +43,7 @@ $result = $conn->query($sql);
             <th>Status</th>
             <th>Credits</th>
             <th>Grade Points</th>
-          </tr>";
+        </tr>";
     
     while ($row = $result->fetch_assoc()) {
         echo "<tr class='row-" . $row['sno'] . "'>";
@@ -67,7 +68,6 @@ $result = $conn->query($sql);
             </div>
             <center><button onclick="window.location.href='userhome.php'" id="b2h">Back To home</button></center>
         </div>
-        
     </div>
     <br><br><br><br>
 </body>
