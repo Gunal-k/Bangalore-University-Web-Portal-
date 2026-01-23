@@ -50,14 +50,15 @@
         echo "<tr class='row-" . $row['id'] . "'>";
         echo "<td>" . $i + 1 . "</td>";
         echo "<td>" . $row['subject'] . "</td>";
-        echo "<td>" . $row['max'] . "</td>";
-        echo "<td>" . $row['min'] . "</td>";
-        echo "<td>" . $row['scored'] . "</td>";
-        echo "<td>" . $row['internal'] . "</td>";
-        echo "<td>" . $row['total'] . "</td>";
+        echo "<td>" . $row['max_marks'] . "</td>";
+        echo "<td>" . $row['min_marks'] . "</td>";
+        echo "<td>" . $row['scored_marks'] . "</td>";
+        echo "<td>" . $row['internal_marks'] . "</td>";
+        echo "<td>" . $row['total_marks'] . "</td>";
         echo "<td>" . $row['status'] . "</td>";
         echo "<td>" . $row['credits'] . "</td>";
         echo "<td>" . $row['grade'] . "</td>";
+        $i++;
                         }
                         echo "</table><br>";
                         
