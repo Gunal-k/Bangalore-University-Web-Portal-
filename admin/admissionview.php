@@ -3,7 +3,7 @@ session_start();
 include '../login-register/database/db.php';
 
 $query = "SELECT * FROM admissions";
-$result = $conn1->query($query);
+$result = $conn->query($query);
 ?>
 
 <!DOCTYPE html>

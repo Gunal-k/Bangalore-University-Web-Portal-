@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password2 = filter_input(INPUT_POST, "password2", FILTER_SANITIZE_SPECIAL_CHARS);
         
         $sql = "SELECT * FROM users WHERE email=?";
-        $stmt = $conn1->prepare($sql);
+        $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if(password_verify($password1,$row['password'])){
                 $hashed_password = password_hash($password2, PASSWORD_DEFAULT);
                 $update_sql = "UPDATE users SET password=? WHERE email=?";
-                $update_stmt = $conn1->prepare($update_sql);
+                $update_stmt = $conn->prepare($update_sql);
                 $update_stmt->bind_param("ss", $hashed_password, $email);
                 if ($update_stmt->execute()) {
                     $_SESSION["valid"] = "valid";
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             else if($_POST['name'] == $row['username']){
                 $update_sql = "UPDATE users SET password=? WHERE email=?";
-                $update_stmt = $conn1->prepare($update_sql);
+                $update_stmt = $conn->prepare($update_sql);
                 $update_stmt->bind_param("ss", $hashed_password, $email);
                 if ($update_stmt->execute()) {
                     $_SESSION["valid"] = "valid";
@@ -52,4 +52,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } 
 
-mysqli_close($conn1);
+mysqli_close($conn);

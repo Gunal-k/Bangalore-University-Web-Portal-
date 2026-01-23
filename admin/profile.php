@@ -4,7 +4,7 @@
     if(isset($_SESSION['username'])){
         $id=$_SESSION['username'];
         $sql = "SELECT * FROM users WHERE username = ?";
-        $stmt = $conn1->prepare($sql);
+        $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $id);
         $stmt->execute();
         $result = $stmt->get_result();

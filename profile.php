@@ -2,7 +2,7 @@
     session_start();
     include "login-register/database/db.php";
     $id=$_SESSION['username'];
-    $stmt = $conn1->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param("s", $id);
     $stmt->execute();
     $result = $stmt->get_result();

@@ -6,7 +6,7 @@
     $query2="DROP TABLE IF EXISTS $username;
 ";
     try {
-        mysqli_query($conn1, $query1);
+        mysqli_query($conn, $query1);
         mysqli_query($conn2, $query2);
         $_SESSION['message'] = "User Record Deleted Successfully";
         header("Location: ../admin/adminHome.php");

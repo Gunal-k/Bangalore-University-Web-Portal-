@@ -37,10 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password1 == $password2) {
         $hash = password_hash($password1, PASSWORD_DEFAULT);
 
-        $stmt = $conn1->prepare("INSERT INTO users (email, username, password, phone, photo) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO users (email, username, password, phone, photo) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $email, $username, $hash, $phone, $photo);
 
-        $stmt2 = $conn1->prepare(
+        $stmt2 = $conn->prepare(
             "INSERT INTO results
             (user_id, subject, max_marks, min_marks, scored_marks,
             internal_marks, total_marks, status, credits, grade)
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         try {
-            $conn1->begin_transaction();
+            $conn->begin_transaction();
 
             $stmt->execute();
             $user_id = $stmt->insert_id;
@@ -75,13 +75,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt2->execute();
             }
 
-            $conn1->commit();
+            $conn->commit();
 
             $_SESSION['message'] = "You are now registered, Please Login";
             header($path);
             exit();
         } catch (mysqli_sql_exception $e) {
-            $conn1->rollback();
+            $conn->rollback();
 
             $_SESSION['message'] = "Error: " . $e->getMessage();
             header($path);
@@ -94,5 +94,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-mysqli_close($conn1);
+mysqli_close($conn);
 mysqli_close($conn2);

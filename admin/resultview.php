@@ -1,11 +1,11 @@
 <?php
 include "..\login-register\database\db.php";
-if ($conn1->connect_error) {
-    die("Connection failed: {$conn1->connect_error}");
+if ($conn->connect_error) {
+    die("Connection failed: {$conn->connect_error}");
 }
 
 $sql = "SELECT * FROM users where role='user'";
-$result = $conn1->query($sql);
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +50,7 @@ $result = $conn1->query($sql);
                     } else {
                         echo "0 results";
                     }
-                    $conn1->close();
+                    $conn->close();
                 ?>
             </div>
         </div>

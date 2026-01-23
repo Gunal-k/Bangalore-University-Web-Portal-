@@ -1,11 +1,11 @@
 <?php
     include "../login-register/database/db.php";
-    if ($conn1->connect_error) {
-        die("Connection failed: {$conn1->connect_error}");
+    if ($conn->connect_error) {
+        die("Connection failed: {$conn->connect_error}");
     }
     
     $sql1 = "SELECT count(*) as total FROM users where role='user'";
-    $result1 = $conn1->query($sql1);
+    $result1 = $conn->query($sql1);
     $user_total = $result1 ? $result1->fetch_assoc()["total"] : 0;    
 
     $sql2 = "SELECT COUNT(*) AS total_tables FROM information_schema.tables WHERE table_schema = 'student_db';";
@@ -13,7 +13,7 @@
     $res_total = $result2 ? $result2->fetch_assoc()["total_tables"] : 0;
 
     $sql3 = "SELECT count(*) as total FROM admissions";
-    $result3 = $conn1->query($sql3);
+    $result3 = $conn->query($sql3);
     $admission_total = $result3 ? $result3->fetch_assoc()["total"] : 0;
 ?>
 <!DOCTYPE html>
