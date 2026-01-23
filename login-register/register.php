@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             foreach ($subjects as $s) {
                 $stmt2->bind_param(
-                    "isiiiisii",
+                    "isiiiiisii",
                     $user_id, $s[0], $s[1], $s[2], $s[3],
                     $s[4], $s[5], $s[6], $s[7], $s[8]
                 );
