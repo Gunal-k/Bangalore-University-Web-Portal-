@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn1->prepare("INSERT INTO users (email, username, password, phone, photo) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $email, $username, $hash, $phone, $photo);
 
-        $stmt2 = $conn->prepare(
+        $stmt2 = $conn1->prepare(
             "INSERT INTO results
             (user_id, subject, max_marks, min_marks, scored_marks,
             internal_marks, total_marks, status, credits, grade)
