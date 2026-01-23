@@ -37,7 +37,7 @@ $result = $conn1->query($sql);
                             echo "<td>" . $row['username'] . "</td>";
                             // echo "<td>" . $row['role'] . "</td>";
                             echo "<td>" . $row['phone'] . "</td>";
-                            echo "<td><center><img src='../login-register/uploads/".$row['photo']."' alt='profile_img' style='object-fit: cover;'></center></td>";
+                            echo "<td><center><img src='{$row['photo']}' alt='profile_img' style='object-fit: cover;'></center></td>";
                             echo "<td class='buttons'>
                                 
                                 <form action='../login-register/delete.php' method='post'>

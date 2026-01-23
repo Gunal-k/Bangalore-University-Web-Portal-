@@ -1,8 +1,8 @@
 <?php
     session_start();
     include "../login-register/database/db.php";
-    $username=$_POST['username'];
-    $sql = "SELECT * FROM $username";
+    $user_id=$_POST['user_id'];
+    $sql = "SELECT * FROM results WHERE user_id = $user_id";
     $result = $conn2->query($sql);
 ?>
 <!DOCTYPE html>
@@ -89,8 +89,8 @@
                                 </tr>";
                             
                             while ($row = $result->fetch_assoc()) {
-                                echo "<tr class='row-" . $row['sno'] . "'>";
-                                echo "<td>" . $row['sno'] . "</td>";
+                                echo "<tr class='row-" . $row['id'] . "'>";
+                                echo "<td>" . $row['id'] . "</td>";
                                 echo "<td><input type='text' name='subject[]' value='" . $row['subject'] . "' required></td>";
                                 echo "<td><input type='number' name='max[]' class='val' value='" . $row['max'] . "' required></td>";
                                 echo "<td><input type='number' name='min[]' class='val' value='" . $row['min'] . "' required></td>";
@@ -112,8 +112,8 @@
                         $conn2->close();
                     ?>
                     <div id="btns">
-                        <button class="edit" name="username" type="submit" value="<?php echo $username ?>">Update</button>
-                        <button class="back" type="button" onclick="window.location.href='adminhome.php?value=results.php&username=<?php echo $username?>'" >Back</button>
+                        <button class="edit" name="user_id" type="submit" value="<?php echo $user_id ?>">Update</button>
+                        <button class="back" type="button" onclick="window.location.href='adminhome.php?value=results.php&user_id=<?php echo $user_id?>'" >Back</button>
                     </div>
                 </form>
             </div>

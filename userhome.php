@@ -2,8 +2,7 @@
 session_start();
 if(isset($_SESSION['login']) && $_SESSION["login"] === true) {
     $name = $_SESSION['username'];
-    $photo = $_SESSION['image_path'];
-    $path = !empty($photo) && file_exists("login-register/uploads/{$photo}") ? "login-register/uploads/{$photo}" : 'login-register/uploads/default.jpeg';
+    $path = $_SESSION['image_path'];
     $_SESSION['path'] = $path;
 } else {
     $_SESSION["login"] = false;

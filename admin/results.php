@@ -2,13 +2,13 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$username=$_GET['username']??$_POST['username'];
+$user_id=$_GET['user_id']??$_POST['user_id'];
 include "..\login-register\database\db.php";
 if ($conn2->connect_error) {
     die("Connection failed: {$conn2->connect_error}");
 }
 
-$sql = "SELECT * FROM $username";
+$sql = "SELECT * FROM results WHERE user_id = $user_id";
 $result = $conn2->query($sql);
 ?>
 <!DOCTYPE html>
@@ -80,8 +80,8 @@ $result = $conn2->query($sql);
                             </tr>";
                         
                         while ($row = $result->fetch_assoc()) {
-                            echo "<tr class='row-" . $row['sno'] . "'>";
-                            echo "<td>" . $row['sno'] . "</td>";
+                            echo "<tr class='row-" . $row['id'] . "'>";
+                            echo "<td>" . $row['id'] . "</td>";
                             echo "<td>" . $row['subject'] . "</td>";
                             echo "<td>" . $row['max'] . "</td>";
                             echo "<td>" . $row['min'] . "</td>";
@@ -102,7 +102,7 @@ $result = $conn2->query($sql);
             </div>
             <div id="btns">
                 <form action="edits.php" method="post">
-                    <button class="edit" name="username" type="submit" value="<?php echo $username ?>">Edit</button>
+                    <button class="edit" name="user_id" type="submit" value="<?php echo $user_id?>">Edit</button>
                 </form>
                 <button class="back" onclick="window.location.href='adminhome.php?value=resultview.php'" >Back</button>
             </div>

@@ -3,7 +3,7 @@ session_start();
 include "../login-register/database/db.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
+    $user_id = $_POST['user_id'];
 
     $subjects = $_POST['subject'];
     $max = $_POST['max'];
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $update_success = true;
 
     for ($i = 0; $i < count($subjects); $i++) {
-        $sql = "UPDATE `$username` SET 
+        $sql = "UPDATE results SET 
                 subject = ?, 
                 max = ?, 
                 min = ?, 
@@ -28,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 status = ?, 
                 credits = ?, 
                 grade = ? 
-                WHERE sno = ?";
+                WHERE id = ? AND user_id = ?";
 
         $stmt = $conn2->prepare($sql);
         $sno = $i + 1;
-        $stmt->bind_param("siiiiisiii", 
+        $stmt->bind_param("siiiiisiiii", 
             $subjects[$i], 
             $max[$i], 
             $min[$i], 
@@ -42,7 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $status[$i], 
             $credits[$i], 
             $grade[$i],
-            $sno
+            $sno,
+            $user_id
         );
 
         if (!$stmt->execute()) {

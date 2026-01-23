@@ -1,6 +1,8 @@
 <?php 
 session_start();
 include "database/db.php";
+require_once 'database/cloudinary.php';
+use Cloudinary\Api\Upload\UploadApi;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
@@ -11,26 +13,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $uname = '';
 
     $path = isset($_GET['value']) && $_GET['value'] == 1 ? "Location: ../admin/adminHome.php" : "Location: ../login.php";
-    
-    function generateUniqueId() {
-        return 'ID-' . time() . '-' . rand(1000, 9999);
-    }
+
+    // Default profile image
+    $uname = "https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/default.jpeg";
 
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['photo']['tmp_name'];
-        $fileName = $_FILES['photo']['name'];
-        $fileSize = $_FILES['photo']['size'];
-        $fileType = $_FILES['photo']['type'];
-        $base = generateUniqueId() . '_' . basename($fileName);
-        $dest_path = "./uploads/{$base}";
 
-        if (move_uploaded_file($fileTmpPath, $dest_path)) {
-            $uname = $base;
-        } else {
-            $uname = "default.jpeg";
+        $allowed = ['jpg', 'jpeg', 'png'];
+        $ext = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowed)) {
+            $_SESSION['message'] = "Only JPG, JPEG, PNG allowed";
+            header("Location: ../register.php");
+            exit();
         }
-    } else {
-        $uname = "default.jpeg";
+
+        try {
+            $upload = (new UploadApi())->upload(
+                $_FILES['photo']['tmp_name'],
+                [
+                    'folder' => 'university_portal/profiles',
+                    'public_id' => uniqid('profile_'),
+                    'overwrite' => true,
+                    'resource_type' => 'image'
+                ]
+            );
+
+            // Store URL instead of filename
+            $uname = $upload['secure_url'];
+
+        } catch (Exception $e) {
+            // fallback image
+            $uname = "https://res.cloudinary.com/devl15ini/image/upload/v1769139672/default_igquix.jpg";
+        }
     }
 
     if ($password1 == $password2) {
@@ -39,43 +54,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn1->prepare("INSERT INTO users (email, username, password, phone, photo) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $email, $username, $hash, $phone, $uname);
 
+        $stmt2 = $conn->prepare(
+            "INSERT INTO results
+            (user_id, subject, max_marks, min_marks, scored_marks,
+            internal_marks, total_marks, status, credits, grade)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        );
 
-
-        $sql2 = "CREATE TABLE $username (
-            sno INT AUTO_INCREMENT PRIMARY KEY,
-            subject VARCHAR(255),
-            max INT,
-            min INT,
-            scored INT,
-            internal INT,
-            total INT,
-            status VARCHAR(10),
-            credits INT,
-            grade INT
-        );";
-
-        $sql3 = "
-        INSERT INTO $username
-        (subject, max, min, scored, internal, total, status, credits, grade)
-        VALUES
-        ('GENERIC ENGLISH', 100, 40, 49, 40, 87, 'Pass', 3, 8),
-        ('GANAKA KANNADA', 100, 40, 27, 40, 67, 'Pass', 3, 6),
-        ('DISCRETE STRUCTURE', 100, 40, 43, 40, 83, 'Pass', 3, 8),
-        ('PROBLEM SOLVING TECHNIQUES', 100, 40, 45, 40, 85, 'Pass', 3, 8),
-        ('DATA STRUCTURE', 100, 40, 28, 40, 68, 'Pass', 3, 7),
-        ('FINANCIAL LITERACY', 100, 40, 21, 40, 61, 'Pass', 3, 6),
-        ('PROBLEM SOLVING LAB', 50, 20, 24, 25, 49, 'Pass', 2, 10),
-        ('DATA STRUCTURE LAB', 50, 20, 21, 25, 46, 'Pass', 2, 9),
-        ('ENVIRONMENTAL STUDIES', 50, 20, 18, 20, 38, 'Pass', 2, 7),
-        ('HEALTH AND WELLNESS', 25, 10, 0, 25, 25, 'Pass', 1, 10);";
+        $subjects = [
+            ['GENERIC ENGLISH', 100, 40, 49, 40, 87, 'Pass', 3, 8],
+            ['GANAKA KANNADA', 100, 40, 27, 40, 67, 'Pass', 3, 6],
+            ['DISCRETE STRUCTURE', 100, 40, 43, 40, 83, 'Pass', 3, 8],
+            ['PROBLEM SOLVING TECHNIQUES', 100, 40, 45, 40, 85, 'Pass', 3, 8],
+            ['DATA STRUCTURE', 100, 40, 28, 40, 68, 'Pass', 3, 7],
+            ['FINANCIAL LITERACY', 100, 40, 21, 40, 61, 'Pass', 3, 6],
+            ['PROBLEM SOLVING LAB', 50, 20, 24, 25, 49, 'Pass', 2, 10],
+            ['DATA STRUCTURE LAB', 50, 20, 21, 25, 46, 'Pass', 2, 9],
+            ['ENVIRONMENTAL STUDIES', 50, 20, 18, 20, 38, 'Pass', 2, 7],
+            ['HEALTH AND WELLNESS', 25, 10, 0, 25, 25, 'Pass', 1, 10],
+        ];
 
         try {
             $conn1->begin_transaction();
 
             $stmt->execute();
+            $user_id = $stmt->insert_id;
 
-            mysqli_query($conn2, $sql2);
-            mysqli_query($conn2, $sql3);
+            foreach ($subjects as $s) {
+                $stmt2->bind_param(
+                    "isiiiisii",
+                    $user_id, $s[0], $s[1], $s[2], $s[3],
+                    $s[4], $s[5], $s[6], $s[7], $s[8]
+                );
+                $stmt2->execute();
+            }
 
             $conn1->commit();
 
