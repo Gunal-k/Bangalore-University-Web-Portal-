@@ -91,7 +91,7 @@
             </tr>
             <tr class="t2">
                 <td rowspan="4">
-                    <center><img src="login-register/uploads/<?php echo $img ?>" alt="" id="img_pro"></center>
+                    <center><img src="<?php echo $img ?>" alt="" id="img_pro"></center>
                 </td>
                 <td>
                     <center>
