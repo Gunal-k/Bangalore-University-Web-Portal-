@@ -4,12 +4,12 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 $user_id=$_GET['user_id']??$_POST['user_id'];
 include "..\login-register\database\db.php";
-if ($conn2->connect_error) {
-    die("Connection failed: {$conn2->connect_error}");
+if ($conn->connect_error) {
+    die("Connection failed: {$conn->connect_error}");
 }
 
 $sql = "SELECT * FROM results WHERE user_id = $user_id";
-$result = $conn2->query($sql);
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,7 +97,7 @@ $result = $conn2->query($sql);
                     } else {
                         echo "0 results";
                     }
-                    $conn2->close();
+                    $conn->close();
                 ?>
             </div>
             <div id="btns">

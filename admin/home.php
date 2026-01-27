@@ -4,12 +4,12 @@
         die("Connection failed: {$conn->connect_error}");
     }
     
-    $sql1 = "SELECT count(*) as total FROM users where role='user'";
+    $sql1 = "SELECT count(*) as total FROM users where role='student'";
     $result1 = $conn->query($sql1);
     $user_total = $result1 ? $result1->fetch_assoc()["total"] : 0;    
 
-    $sql2 = "SELECT COUNT(*) AS total_tables FROM information_schema.tables WHERE table_schema = 'student_db';";
-    $result2 = $conn2->query($sql2);
+    $sql2 = "SELECT COUNT(*)/10 AS total_tables FROM information_schema.tables WHERE table_schema = 'student_db';";
+    $result2 = $conn->query($sql2);
     $res_total = $result2 ? $result2->fetch_assoc()["total_tables"] : 0;
 
     $sql3 = "SELECT count(*) as total FROM admissions";

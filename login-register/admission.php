@@ -1,8 +1,8 @@
 <?php
 session_start();
 include "./database/db.php";
-if ($conn1->connect_error) {
-    die("Database connection failed: {$conn1->connect_error}");
+if ($conn->connect_error) {
+    die("Database connection failed: {$conn->connect_error}");
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars(trim($_POST['name']));
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    $stmt = $conn1->prepare("INSERT INTO admissions (name, email, phone, dob, gender, course, address, marks) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO admissions (name, email, phone, dob, gender, course, address, marks) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssssi", $name, $email, $phone, $dob, $gender, $course, $address, $marks);
 
     $path = isset($_SESSION["login"]) && $_SESSION["login"] ? "userhome" : "index";

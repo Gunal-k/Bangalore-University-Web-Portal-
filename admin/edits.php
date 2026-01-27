@@ -3,7 +3,7 @@
     include "../login-register/database/db.php";
     $user_id=$_POST['user_id'];
     $sql = "SELECT * FROM results WHERE user_id = $user_id";
-    $result = $conn2->query($sql);
+    $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +109,7 @@
                         } else {
                             echo "0 results";
                         }
-                        $conn2->close();
+                        $conn->close();
                     ?>
                     <div id="btns">
                         <button class="edit" name="user_id" type="submit" value="<?php echo $user_id ?>">Update</button>

@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_status'])) {
     $status = $_POST['status'];
 
     $query1 = "UPDATE admissions SET status = ? WHERE id = ?";
-    $stmt = $conn1->prepare($query1);
+    $stmt = $conn->prepare($query1);
     $stmt->bind_param("si", $status, $id);
 
     if ($stmt->execute()) {
