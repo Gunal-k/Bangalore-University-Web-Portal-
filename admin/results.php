@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 $user_id=$_GET['user_id']??$_POST['user_id'];
-include "..\login-register\database\db.php";
+include "../login-register/database/db.php";
 if ($conn->connect_error) {
     die("Connection failed: {$conn->connect_error}");
 }
