@@ -4,7 +4,7 @@ if ($conn->connect_error) {
     die("Connection failed: {$conn->connect_error}");
 }
 
-$sql = "SELECT * FROM users where role='user'";
+$sql = "SELECT * FROM users where role='student'";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
