@@ -1,5 +1,5 @@
 <?php
-include(".\login-register\database\db.php");
+include("../login-register/database/db.php");
 if ($conn->connect_error) {
     die("Connection failed: {$conn->connect_error}");
 }
